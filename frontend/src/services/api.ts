@@ -17,6 +17,11 @@ export interface ProgressData {
   milestones: Milestone[];
 }
 
+export interface User {
+  id: string;
+  name: string;
+}
+
 export const getProgress = async (userId: string): Promise<ProgressData> => {
   const { data } = await api.get(`/progreso/${userId}`);
   return data.data;
@@ -24,5 +29,10 @@ export const getProgress = async (userId: string): Promise<ProgressData> => {
 
 export const registerSale = async (userId: string, amount: number) => {
   const { data } = await api.post(`/ventas`, { userId, amount });
+  return data.data;
+};
+
+export const getUsers = async (): Promise<User[]> => {
+  const { data } = await api.get('/usuarios');
   return data.data;
 };
