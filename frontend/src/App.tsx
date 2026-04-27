@@ -1,28 +1,19 @@
-import { AppButton } from './components/ui/AppButton';
-import { ProgressBar } from './components/ui/ProgressBar';
-import { Badge } from './components/ui/Badge';
+import { Dashboard } from './components/Dashboard';
+
+const USER_ID = import.meta.env.VITE_TEST_USER_ID || 'agrega-tu-user-id-al-env';
 
 function App() {
   return (
-    <div className="p-8 space-y-6">
-      <h1 className="text-heading-md">Test de Componentes</h1>
-
-      <div className="space-x-4">
-        <AppButton variant="primary">Guardar Venta</AppButton>
-        <AppButton variant="outline" isLoading>Cargando</AppButton>
-      </div>
-
-      <div className="max-w-md space-y-2">
-        <p className="text-body-sm font-semibold">Progreso Mensual (60%)</p>
-        <ProgressBar percentage={60} />
-      </div>
-
-      <div className="space-x-2">
-        <Badge variant="warning">Hito 50%</Badge>
-        <Badge variant="success">Meta Alcanzada</Badge>
-      </div>
+    <div className="min-h-screen bg-surface-muted py-8">
+      {USER_ID === 'agrega-tu-user-id-al-env' ? (
+        <div className="text-center text-red-500 p-8">
+          Por favor, configura tu VITE_TEST_USER_ID en el archivo .env del frontend.
+        </div>
+      ) : (
+        <Dashboard userId={USER_ID} />
+      )}
     </div>
-  )
+  );
 }
 
 export default App;
