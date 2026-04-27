@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id          String        @id @default(uuid())
+  name        String
+  sales       Sale[]
+  goals       MonthlyGoal[]
+  milestones  Milestone[]
+}
+
+model MonthlyGoal {
+  id          String   @id @default(uuid())
+  userId      String
+  month       Int
+  year        Int
+  targetAmount Float
+  user        User     @relation(fields: [userId], references: [id])
+
+  @@unique([userId, month, year])
+}
+
+model Sale {
+  id          String   @id @default(uuid())
+  userId      String
+  amount      Float
+  date        DateTime @default(now())
+  user        User     @relation(fields: [userId], references: [id])
+}
+
+model Milestone {
+  id          String   @id @default(uuid())
+  userId      String
+  type        String
+  achievedAt  DateTime @default(now())
+  user        User     @relation(fields: [userId], references: [id])
+
+  @@unique([userId, type])
+}
