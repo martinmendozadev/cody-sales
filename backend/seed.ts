@@ -1,9 +1,9 @@
 import { prisma } from './config/db';
 import { faker } from '@faker-js/faker';
 
-const USERS_TO_CREATE = 8;
-const SALES_MIN = 8;
-const SALES_MAX = 22;
+const USERS_TO_CREATE = 14;
+const SALES_MIN = 0;
+const SALES_MAX = 10;
 
 const MILESTONES = [
   { threshold: 50, type: '50_PERCENT' },
@@ -31,7 +31,7 @@ async function main() {
     });
     createdUsers.push({ id: user.id, name: user.name });
 
-    const targetAmount = faker.number.int({ min: 9000, max: 30000 });
+    const targetAmount = faker.number.int({ min: 1000, max: 15000 });
     await prisma.monthlyGoal.create({
       data: {
         userId: user.id,
