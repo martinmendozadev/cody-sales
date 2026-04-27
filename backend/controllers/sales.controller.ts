@@ -10,7 +10,7 @@ export class SalesController {
         throw { statusCode: 400, message: 'Datos inválidos. userId y amount son requeridos.' };
       }
 
-      const result = await SalesService.registerSale(userId, amount);
+      const result = await SalesService.registerSale(userId as string, amount);
       res.status(201).json({ success: true, data: result });
     } catch (error) {
       next(error);
@@ -19,7 +19,7 @@ export class SalesController {
 
   static async getProgress(req: Request, res: Response, next: NextFunction) {
     try {
-      const { userId } = req.params;
+      const userId = req.params.userId as string;
       const result = await SalesService.getProgress(userId);
       res.json({ success: true, data: result });
     } catch (error) {
@@ -29,7 +29,7 @@ export class SalesController {
 
   static async getSalesHistory(req: Request, res: Response, next: NextFunction) {
     try {
-      const { userId } = req.params;
+      const userId = req.params.userId as string;
       const result = await SalesService.getSalesHistory(userId);
       res.json({ success: true, data: result });
     } catch (error) {
