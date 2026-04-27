@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import { errorHandler } from './middlewares/errorHandler';
+import salesRoutes from './routes/sales.routes';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -8,10 +9,10 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
-// Aquí agregaremos las rutas pronto
-// app.use('/api', routes);
+// Montar las rutas
+app.use('/api', salesRoutes);
 
-// Middleware de manejo de errores global
+// Middleware de manejo de errores global (debe ir al final)
 app.use(errorHandler);
 
 app.listen(PORT, () => {
