@@ -61,7 +61,7 @@ export const SalesForm: React.FC<SalesFormProps> = ({ userId, onSuccess }) => {
         {error && <p className="text-red-500 text-body-sm">{error}</p>}
         {successMsg && <p className="text-success-base text-body-sm font-medium">{successMsg}</p>}
 
-        <AppButton type="submit" className="w-full" isLoading={loading}>
+        <AppButton type="submit" className="bg-brand hover:bg-brand-dark text-white px-6 py-3 rounded-xl2 shadow-card" isLoading={loading}>
           Guardar Venta
         </AppButton>
       </form>
