@@ -10,11 +10,9 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
-// Montar las rutas
 app.use('/api', salesRoutes);
 app.use('/api', userRoutes);
 
-// Middleware de manejo de errores global (debe ir al final)
 app.use(errorHandler);
 
 app.listen(PORT, () => {

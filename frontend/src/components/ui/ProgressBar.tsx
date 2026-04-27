@@ -7,10 +7,8 @@ interface ProgressBarProps {
 }
 
 export const ProgressBar: React.FC<ProgressBarProps> = ({ percentage, className }) => {
-  // Asegurarnos de que el porcentaje esté entre 0 y 100
   const clampedPercentage = Math.min(Math.max(percentage, 0), 100);
 
-  // Cambiar el color si se alcanzó la meta
   const isGoalReached = clampedPercentage >= 100;
   const barColor = isGoalReached ? 'bg-success-base' : 'bg-brand-primary';
 

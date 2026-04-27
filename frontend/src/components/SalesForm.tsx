@@ -4,7 +4,7 @@ import { registerSale } from '../services/api';
 
 interface SalesFormProps {
   userId: string;
-  onSuccess: () => void; // Para avisarle al Dashboard que debe actualizarse
+  onSuccess: () => void;
 }
 
 export const SalesForm: React.FC<SalesFormProps> = ({ userId, onSuccess }) => {
@@ -29,7 +29,7 @@ export const SalesForm: React.FC<SalesFormProps> = ({ userId, onSuccess }) => {
       await registerSale(userId, numericAmount);
       setSuccessMsg(`¡Venta de $${numericAmount} registrada con éxito!`);
       setAmount('');
-      onSuccess(); // Actualizamos el progreso en el componente padre
+      onSuccess();
     } catch (err: any) {
       setError(err.response?.data?.error || 'Ocurrió un error al registrar la venta.');
     } finally {

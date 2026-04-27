@@ -16,7 +16,7 @@ async function main() {
       userId: user.id,
       month: currentMonth,
       year: currentYear,
-      targetAmount: 10000, // Meta de $10,000
+      targetAmount: 10000,
     },
   });
 

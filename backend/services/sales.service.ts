@@ -2,13 +2,11 @@ import { prisma } from '../config/db';
 
 export class SalesService {
 
-  // 1. Registrar venta y calcular hitos
   static async registerSale(userId: string, amount: number) {
     const currentDate = new Date();
     const currentMonth = currentDate.getMonth() + 1;
     const currentYear = currentDate.getFullYear();
 
-    // Validar que el usuario y su meta existan
     const goal = await prisma.monthlyGoal.findUnique({
       where: {
         userId_month_year: { userId, month: currentMonth, year: currentYear },
@@ -19,12 +17,10 @@ export class SalesService {
       throw { statusCode: 404, message: 'Meta mensual no encontrada para este usuario' };
     }
 
-    // Registrar la venta
     const newSale = await prisma.sale.create({
       data: { userId, amount },
     });
 
-    // Calcular progreso actual
     const allSalesThisMonth = await prisma.sale.aggregate({
       where: {
         userId,
@@ -39,7 +35,6 @@ export class SalesService {
     const totalSold = allSalesThisMonth._sum.amount || 0;
     const progressPercentage = (totalSold / goal.targetAmount) * 100;
 
-    // Lógica de hitos (50%, 80%, 100%)
     const milestonesToGibe = [];
     if (progressPercentage >= 50) milestonesToGibe.push('50_PERCENT');
     if (progressPercentage >= 80) milestonesToGibe.push('80_PERCENT');
@@ -47,7 +42,6 @@ export class SalesService {
 
     const newlyUnlocked = [];
 
-    // Otorgar hitos si no los tiene
     for (const type of milestonesToGibe) {
       const existing = await prisma.milestone.findUnique({
         where: { userId_type: { userId, type } },
@@ -68,7 +62,6 @@ export class SalesService {
     };
   }
 
-  // 2. Obtener progreso actual
   static async getProgress(userId: string) {
     const currentDate = new Date();
     const currentMonth = currentDate.getMonth() + 1;
@@ -102,7 +95,6 @@ export class SalesService {
     };
   }
 
-  // 3. Obtener historial de ventas
   static async getSalesHistory(userId: string) {
     return await prisma.sale.findMany({
       where: { userId },

@@ -13,7 +13,7 @@ export class SalesController {
       const result = await SalesService.registerSale(userId, amount);
       res.status(201).json({ success: true, data: result });
     } catch (error) {
-      next(error); // Pasa el error al middleware global
+      next(error);
     }
   }
 
