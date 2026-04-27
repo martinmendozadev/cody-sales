@@ -67,6 +67,13 @@ export class SalesService {
     const currentMonth = currentDate.getMonth() + 1;
     const currentYear = currentDate.getFullYear();
 
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { name: true },
+    });
+
+    if (!user) throw { statusCode: 404, message: 'Usuario no encontrado' };
+
     const goal = await prisma.monthlyGoal.findUnique({
       where: { userId_month_year: { userId, month: currentMonth, year: currentYear } },
     });
@@ -88,6 +95,7 @@ export class SalesService {
     const milestones = await prisma.milestone.findMany({ where: { userId } });
 
     return {
+      name: user.name,
       target: goal.targetAmount,
       current: totalSold,
       percentage: Math.min((totalSold / goal.targetAmount) * 100, 100),

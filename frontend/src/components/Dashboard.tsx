@@ -35,11 +35,10 @@ export const Dashboard: React.FC<{ userId: string }> = ({ userId }) => {
   if (!data) return null;
 
   return (
-    <div className="max-w-4xl mx-auto p-6 grid grid-cols-1 md:grid-cols-2 gap-8">
-      {/* Columna Izquierda: Progreso y Logros */}
+    <div className="max-w-4xl mx-auto p-6 grid grid-cols-1 md:grid-cols-2 items-center gap-8">
       <div className="space-y-8">
         <div>
-          <h1 className="text-heading-lg text-gray-900 mb-1">¡Hola, Promotor!</h1>
+          <h1 className="text-heading-lg text-gray-900 mb-1">¡Hola, {data.name}!</h1>
           <p className="text-body-md text-gray-500">Aquí está tu resumen del mes.</p>
         </div>
 

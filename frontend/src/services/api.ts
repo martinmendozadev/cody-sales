@@ -11,6 +11,7 @@ export interface Milestone {
 }
 
 export interface ProgressData {
+  name: string;
   target: number;
   current: number;
   percentage: number;
